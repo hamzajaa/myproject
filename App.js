@@ -1,37 +1,44 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 export default function App() {
   const [peopel, setPepeol] = useState([
-    { name: 'hamza', key: 1 },
-    { name: 'salah', key: 2 },
-    { name: 'omar', key: 3 },
-    { name: 'yassine', key: 4 },
-    { name: 'hamid', key: 5 },
-    { name: 'mustapha', key: 6 },
-    { name: 'aziz', key: 7 }
+    { name: 'hamza', id: 1 },
+    { name: 'salah', id: 2 },
+    { name: 'omar', id: 3 },
+    { name: 'yassine', id: 4 },
+    { name: 'hamid', id: 5 },
+    { name: 'mustapha', id: 6 },
+    { name: 'aziz', id: 7 }
   ]);
 
   return (
     <View style={styles.container}>
 
-      <ScrollView>
+      <FlatList
+        numColumns={2}
+        // keyExtractor={(item) => item.id}
+        data={peopel}
+        renderItem={({ item }) => (
+          <Text style={styles.item}>{item.name}</Text>
+        )}
+      />
 
+
+      {/* <FlatList  // automatically added a key and better performance
+        data={peopel}
+        renderItem={ ({ item }) => (
+          <Text style={styles.item}>{item.name}</Text>
+        )}
+      /> */}
+
+      {/* <ScrollView>
         {peopel.map(item => (
           <View key={item.key}>
             <Text style={styles.item}>{item.name}</Text>
           </View>
         ))}
-
-        {/* {peopel.map((item) => {
-          return (
-            <View key={item.key}>
-              <Text style={styles.item}>{item.name}</Text>
-            </View>
-          )
-        })} */}
-
-      </ScrollView>
+      </ScrollView> */}
 
     </View>
   );
@@ -51,5 +58,6 @@ const styles = StyleSheet.create({ // object : key value
     padding: 30,
     backgroundColor: 'pink',
     fontSize: 24,
+    marginHorizontal: 10,
   }
 });
