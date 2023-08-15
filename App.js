@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [peopel, setPepeol] = useState([
@@ -12,33 +12,28 @@ export default function App() {
     { name: 'aziz', id: 7 }
   ]);
 
+  const pressHandler = (id) => {
+    console.log(id);
+    setPepeol((prevPeople) => {
+      console.log(prevPeople);
+      return prevPeople.filter(person => person.id !== id); // id person.id !== id the person will be remove from array
+    })
+  }
+  
   return (
     <View style={styles.container}>
 
       <FlatList
         numColumns={2}
-        // keyExtractor={(item) => item.id}
         data={peopel}
         renderItem={({ item }) => (
-          <Text style={styles.item}>{item.name}</Text>
+
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+            <Text style={styles.item}>{item.name}</Text>
+          </TouchableOpacity>
+
         )}
       />
-
-
-      {/* <FlatList  // automatically added a key and better performance
-        data={peopel}
-        renderItem={ ({ item }) => (
-          <Text style={styles.item}>{item.name}</Text>
-        )}
-      /> */}
-
-      {/* <ScrollView>
-        {peopel.map(item => (
-          <View key={item.key}>
-            <Text style={styles.item}>{item.name}</Text>
-          </View>
-        ))}
-      </ScrollView> */}
 
     </View>
   );
